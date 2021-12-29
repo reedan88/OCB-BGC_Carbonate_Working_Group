@@ -13,8 +13,12 @@
 #     name: python3
 # ---
 
+import os
+import re
+import numpy as np
 import pandas as pd
 import xarray as xr
+import haversine as hs
 import matplotlib.pyplot as plt
 from ast import literal_eval
 
@@ -177,3 +181,68 @@ def load_annotations(filePath):
             annotations.drop(columns=colName, inplace=True)
             
     return annotations
+
+
+def findNearest(bottleData, buoyLoc, maxDist):
+    """Find the bottle sample values within a maximum distance from the buoy
+    
+    Parameters
+    ----------
+    bottleData: (pd.DataFrame -> strings or floats)
+        A tuple of (latitude, longitude) values in decimal degrees of the bottle sample location
+    buoyLoc: (tuple -> floats)
+        A tuple of (latitude, longitude) values in decimal degrees of the buoy location
+    maxDist: (float)
+        Maximum distance in km away for a sample location from the buoy location
+    
+    Returns
+    -------
+    mask: (boolean)
+        Returns True or False boolean if sampleLoc < maxDist from buoyLoc
+    """
+    # Get the startLat/startLon as floats
+    startLat = bottleData["Start Latitude [degrees]"].apply(lambda x: float(x))
+    startLon = bottleData["Start Longitude [degrees]"].apply(lambda x: float(x))
+    
+    # Calculate the distance
+    distance = []
+    for lat, lon in zip(startLat, startLon):
+        sampleLoc = (lat, lon)
+        distance.append(hs.haversine(sampleLoc, buoyLoc))
+    
+    # Filter the results
+    return [d <= maxDist for d in distance]
+
+
+def findSamples(bottleData, buoyLoc, buoyDepth, maxDist, depthTol):
+    
+    """Find the bottle sample values within a maximum distance from the buoy
+    
+    Parameters
+    ----------
+    bottleData: (pd.DataFrame -> strings or floats)
+        A tuple of (latitude, longitude) values in decimal degrees of the bottle sample location
+    buoyLoc: (tuple -> floats)
+        A tuple of (latitude, longitude) values in decimal degrees of the buoy location
+    buoyDepth: (float)
+        Deployment depth of the instrument
+    maxDist: (float)
+        Maximum distance in km away for a sample location from the buoy location
+    depthTol: (float)
+        Maximum depth difference to select samples from the buoyDepth
+    
+    Returns
+    -------
+    mask: (boolean)
+        Returns True or False boolean if sampleLoc < maxDist from buoyLoc
+    """
+    # Filter for the nearest samples
+    nearest = findNearest(bottleData, buoyLoc, maxDist)
+    bottleData = bottleData[nearest]
+    
+    # Filter based on depth
+    depthMin = buoyDepth - depthTol
+    depthMax = buoyDepth + depthTol
+    bottleData = bottleData[(bottleData["CTD Depth [m]"] >= depthMin) & (bottleData["CTD Depth [m]"] <= depthMax)]
+    
+    return bottleData

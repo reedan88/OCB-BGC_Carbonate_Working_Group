@@ -116,3 +116,20 @@ def interp_niskin_flag(flag):
             return QualityFlags.SUSPECT
         else:
             return QualityFlags.UNKNOWN
+        
+def convert_times(x):
+    if type(x) is str:
+        x = x.replace(" ","")
+        x = pd.to_datetime(x, utc=False)
+    else:
+        pass
+    return x
+
+def not_statistically_sigificant(x):
+    if type(x) is str:
+        if "<" in x:
+            x = 0
+    return x
+# -
+
+
