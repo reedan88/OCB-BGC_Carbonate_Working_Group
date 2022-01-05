@@ -30,10 +30,10 @@ Now you are ready to get working with OOI data! Launch a jupyter notebook in you
 The example notebooks in this repo rely heavily on packages, functions, and routines that have been developed over the years by the OOI operators to assist in processing and working with OOI data. There are two principle repos on which the example notebooks lean are:
 
 * ##### OOINet
-The modules and tools within this repo are designed to assist in requesting, importing, downloading, and vizualizing data from the Ocean Observatories Initiative API by M2M requests. It can be found at https://github.com/reedan88/OOINet.
+: The modules and tools within this repo are designed to assist in requesting, importing, downloading, and vizualizing data from the Ocean Observatories Initiative API by M2M requests. It can be found at https://github.com/reedan88/OOINet.
 
 * ##### OOI-Data-Explorations
-Explorations of Ocean Observatories Initiative Datasets via MATLAB, Python, R, and Julia. It can be found at https://github.com/oceanobservatories/ooi-data-explorations.
+: Explorations of Ocean Observatories Initiative Datasets via MATLAB, Python, R, and Julia. It can be found at https://github.com/oceanobservatories/ooi-data-explorations.
 
 These repos are not distributed, so they will need to be either cloned to your local machine or the files and functions directly downloaded.
 
