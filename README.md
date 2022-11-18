@@ -46,11 +46,8 @@ These repos are not distributed, so they will need to be either cloned to your l
 
 #### Files in this repo
 * **utils.py**
-* **bottle_utils.py**
 * **environment.yaml**
 
-#### Files outside this repo
-* **user_info.yaml** - a YAML file which has the user's OOI API username and token. This is not available in the repo; the user should make one for themselves, and place it in the parent directory of their copy of this repo) _This file is specifically excluded in the .gitignore._
 
 
 
