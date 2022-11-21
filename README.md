@@ -2,8 +2,6 @@
 
 Welcome, this repo provides starter code, example notebooks, and example data for getting started working with Ocean Observatories Initiative Carbon System Sensors.
 
-## Purpose
-
 
 ## Project Files Description
 
@@ -50,11 +48,3 @@ These repos are not distributed, so they will need to be either cloned to your l
 
 
 
-
-
-TODO:
-* Finish README
-* ~~Bottle Data Example Notebook~~
-* Data Explorer - Download Data Notebook
-* PCO2A Notebook
-* PCO2W Notebook
